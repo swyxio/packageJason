@@ -1,3 +1,6 @@
+i tried this for boilerpl82  but i would like to use meteor-now and it didnt work.
+
+
 ### Pup
 A boilerplate for products.
 

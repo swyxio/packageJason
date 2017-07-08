@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { ServiceConfiguration } from 'meteor/service-configuration';
 
-const OAuthSettings = Meteor.settings.private.OAuth;
+const OAuthSettings = Meteor.settings.private && Meteor.settings.private.OAuth;
 
 if (OAuthSettings) {
   Object.keys(OAuthSettings).forEach((service) => {
