@@ -18,7 +18,7 @@ A hackathon/starter kit/boilerplate rating engine.
 
 <img src="public/boilerplatesearchdependencies.gif" alt="Demo gif" style="width: 400px;"/>
 
-###With his new boilerplate skills, Jason even has time to ask Package Jane out on a date!
+### With his new boilerplate skills, Jason even has time to ask Package Jane out on a date!
 
 <img src="public/packagejane.png" alt="Drawing" style="width: 200px;"/>
 
@@ -32,9 +32,39 @@ A hackathon/starter kit/boilerplate rating engine.
 
 # FAQ
 
-## So is "Package" a title or a job description or a last name or...?
+**So how do I use this thing?**
 
-### Yes.
+You can't. Package Jason is still working on it. This isn't launched yet. However we appreciate your interest. 
+
+Obligatory Government Notice: Whether you are sending it or receiving it, your mail is important to you and the US Postal Service®. When mail is lost or delayed, we want to find it. 
+
+If you think your package or mail is lost or delayed, follow these steps to help us find your mail.
+
+**Before You Begin**
+
+**Check Current Status**
+
+Before you begin your search, if your package or mailpiece has tracking, check USPS Tracking® to see its current status.
+USPS Tracking
+
+**Informed Delivery® Users**
+
+Informed Delivery provides a digital preview of your incoming mail. There may be occasions where a mailpiece may be delayed in reaching its destination. For additional information, please visit Informed Delivery FAQs.
+
+**Submit a Search Request**
+
+If after 7 business days, your mail or package hasn’t arrived, submit a Missing Mail Search Request with the following information:
+
+- Sender mailing address
+- Recipient mailing address
+- Size and type of container or envelope you used
+- Identifying information such as your USPS Tracking number(s), the mailing date from your mailing receipt, or Click-N-Ship® label receipt
+- Description of the contents such as what it is and the brand, model, color, or size, if applicable
+- Pictures that could help us recognize your item
+
+**So is "Package" a title or a job description or a last name or...?**
+
+Yes
 
 ---
 
