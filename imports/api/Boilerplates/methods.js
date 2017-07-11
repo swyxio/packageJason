@@ -5,9 +5,17 @@ import rateLimit from '../../modules/rate-limit';
 
 Meteor.methods({
   'boilerplates.insert': function boilerplatesInsert(doc) {
+    // console.log('boilerplates insert', doc.ownerrepo);
     check(doc, {
-      title: String,
-      body: String,
+      ownerrepo: String,
+      boilerplateReview: String,
+      cogload: Number,
+      intload: Number,
+      extload: Number,
+      popScore: Number,
+      scoreratio: Number,
+      dependencies: Array,
+      boilerplateKeywords: Array,
     });
 
     try {
@@ -19,8 +27,15 @@ Meteor.methods({
   'boilerplates.update': function boilerplatesUpdate(doc) {
     check(doc, {
       _id: String,
-      title: String,
-      body: String,
+      ownerrepo: String,
+      boilerplateReview: String,
+      cogload: Number,
+      intload: Number,
+      extload: Number,
+      popScore: Number,
+      scoreratio: Number,
+      dependencies: Array,
+      boilerplateKeywords: Array,
     });
 
     try {

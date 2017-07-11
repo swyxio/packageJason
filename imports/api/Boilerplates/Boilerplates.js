@@ -36,17 +36,47 @@ Boilerplates.schema = new SimpleSchema({
       if (this.isInsert || this.isUpdate) return (new Date()).toISOString();
     },
   },
-  title: {
+  ownerrepo: {
     type: String,
     label: 'The name of the boilerplate.',
   },
-  url: {
-    type: String,
-    label: 'The body of the boilerplate.',
+  cogload: {
+    type: Number,
+    label: 'The cognitive load of the boilerplate.',
   },
-  metadata: {
+  intload: {
+    type: Number,
+    label: 'The internal load of the boilerplate.',
+  },
+  extload: {
+    type: Number,
+    label: 'The external load of the boilerplate.',
+  },
+  popScore: {
+    type: Number,
+    label: 'The popularity score of the boilerplate.',
+  },
+  scoreratio: {
+    type: Number,
+    label: 'The score ratio of the boilerplate.',
+  },
+  dependencies: {
+    type: Array,
+    label: 'The dependencies of the boilerplate.',
+  },
+  'dependencies.$': {
     type: String,
-    label: 'The metadata of the boilerplate.',
+  },
+  boilerplateReview: {
+    type: String,
+    label: 'The review of the boilerplate',
+  },
+  boilerplateKeywords: {
+    type: Array,
+    label: 'The special keywords of the boilerplate',
+  },
+  'boilerplateKeywords.$': {
+    type: String,
   },
 });
 

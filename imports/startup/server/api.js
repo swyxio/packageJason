@@ -1,5 +1,7 @@
 import '../../api/Documents/methods';
 import '../../api/Documents/server/publications';
+import '../../api/Boilerplates/methods';
+import '../../api/Boilerplates/server/publications';
 
 import '../../api/OAuth/server/methods';
 
