@@ -11,7 +11,13 @@ const Navigation = props => (
   <Navbar>
     <Navbar.Header>
       <Navbar.Brand>
-        <Link to="/">PackageJason</Link>
+        <Link to="/">
+          <img
+            src="/favicon.png"
+            alt="Package Jason!"
+            style={{ height: '32px', display: 'inline' }}
+          />PackageJason
+        </Link>
       </Navbar.Brand>
       <Navbar.Toggle />
     </Navbar.Header>

@@ -8,7 +8,8 @@ import { Roles } from 'meteor/alanning:roles';
 import Navigation from '../../components/Navigation/Navigation';
 import Authenticated from '../../components/Authenticated/Authenticated';
 import Public from '../../components/Public/Public';
-import Index from '../../pages/Index/Index';
+// import Index from '../../pages/Index/Index';
+import Index2 from '../../pages/Index/Index';
 import Documents from '../../pages/Documents/Documents';
 // import NewDocument from '../../pages/NewDocument/NewDocument';
 import Boilerplates from '../../pages/Boilerplates/Boilerplates';
@@ -33,13 +34,14 @@ import './App.scss';
           // <Authenticated exact path="/documents/new" component={NewDocument} {...props} />
           // <Authenticated exact path="/documents/:_id" component={ViewDocument} {...props} />
           // <Authenticated exact path="/documents/:_id/edit" component={EditDocument} {...props} />
+          // <Route exact name="index" path="/" component={Index} />
 const App = props => (
   <Router>
     {!props.loading ? <div className="App">
       <Navigation {...props} />
       <Grid>
         <Switch>
-          <Route exact name="index" path="/" component={Index} />
+          <Route exact name="index" path="/" component={Index2} />
           <Authenticated exact path="/documents" component={Documents} {...props} />
           <Authenticated exact path="/boilerplates" component={Boilerplates} {...props} />
           <Authenticated exact path="/boilerplates/new" component={NewBoilerplate} {...props} />
@@ -53,6 +55,7 @@ const App = props => (
           <Route name="terms" path="/terms" component={Terms} />
           <Route name="privacy" path="/privacy" component={Privacy} />
           <Route name="examplePage" path="/example-page" component={ExamplePage} />
+          <Route name="indexwithownerrepo" path="/:owner/:repo" component={Index2} />
           <Route component={NotFound} />
         </Switch>
       </Grid>

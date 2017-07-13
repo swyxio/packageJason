@@ -5,7 +5,7 @@ import rateLimit from '../../modules/rate-limit';
 
 Meteor.methods({
   'boilerplates.insert': function boilerplatesInsert(doc) {
-    // console.log('boilerplates insert', doc.ownerrepo);
+    console.log('boilerplates insert', doc);
     check(doc, {
       ownerrepo: String,
       boilerplateReview: String,
@@ -51,6 +51,27 @@ Meteor.methods({
 
     try {
       return Boilerplates.remove(documentId);
+    } catch (exception) {
+      throw new Meteor.Error('500', exception);
+    }
+  },
+  'boilerplates.heart': async function boilerplatesHeart(documentId) {
+    check(documentId, String);
+
+    try {
+      const doc = await Boilerplates.findOne({ _id: documentId });
+      console.log('heartdoc', doc.userHearts);
+      console.log('thisuserid', this.userId);
+      const dh = doc.userHearts;
+      if (dh.includes(this.userId)) {
+        if (dh.indexOf(this.userId) > -1) dh.splice(dh.indexOf(this.userId), 1);
+        doc.userHearts = dh;
+      } else {
+        dh.push(this.userId);
+        doc.userHearts = dh;
+      }
+      console.log('heartdoc2', doc.userHearts);
+      Boilerplates.update(documentId, { $set: doc });
     } catch (exception) {
       throw new Meteor.Error('500', exception);
     }

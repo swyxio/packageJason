@@ -21,6 +21,15 @@ const handleRemove = (documentId) => {
     });
   }
 };
+const handleHeart = (documentId, toggle) => {
+  Meteor.call('boilerplates.heart', documentId, (error) => {
+    if (error) {
+      Bert.alert(error.reason, 'danger');
+    } else {
+      Bert.alert(`Boilerplate ${toggle ? 'unhearted! Sad' : 'loves you back! ❤❤❤'}!`, 'success');
+    }
+  });
+};
 
 class BoilerplateSearch extends React.Component {
   constructor(props) {
@@ -84,7 +93,7 @@ class BoilerplateSearch extends React.Component {
         </p>
       </Tooltip>
     );
-
+    console.log('filteredboilerplates', filteredboilerplates);
     return (<div>
       <Typeahead
         labelKey="typeahead"
@@ -96,6 +105,7 @@ class BoilerplateSearch extends React.Component {
       {filteredboilerplates.length ? <Table responsive>
         <thead>
           <tr>
+            <th />
             <th>Title</th>
             <th>Pop. Score <OverlayTrigger placement="right" overlay={tooltipPS}>
               <i> (?)</i></OverlayTrigger>
@@ -110,8 +120,15 @@ class BoilerplateSearch extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {filteredboilerplates.map(({ _id, ownerrepo, cogload, intload, extload, popScore, scoreratio, updatedAt }) => (
+          {filteredboilerplates.map(({ _id, ownerrepo, cogload, intload, extload, popScore, scoreratio, updatedAt, userHearts }) => (
             <tr key={_id}>
+              <td>
+                <Button
+                  bsStyle="info"
+                  onClick={() => handleHeart(_id, userHearts && userHearts.includes(Meteor.userId()))}
+                  block
+                ><span style={userHearts && userHearts.includes(Meteor.userId()) ? { color: 'pink', fontSize: '2em' } : {}}>❤</span></Button>
+              </td>
               <td>{ownerrepo} <a href={`https://github.com/${ownerrepo}`} target="_blank">🔗</a></td>
               <td>{popScore}</td>
               <td>{cogload} <br /><small><em>Int:{intload} Ext:{extload}</em></small></td>

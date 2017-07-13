@@ -78,6 +78,16 @@ Boilerplates.schema = new SimpleSchema({
   'boilerplateKeywords.$': {
     type: String,
   },
+  userHearts: {
+    type: Array,
+    label: 'Users who have hearted the boilerplate',
+    autoValue() {
+      if (this.isInsert) return [];
+    },
+  },
+  'userHearts.$': {
+    type: String,
+  },
 });
 
 Boilerplates.attachSchema(Boilerplates.schema);

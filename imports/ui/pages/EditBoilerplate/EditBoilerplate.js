@@ -13,8 +13,13 @@ const EditBoilerplate = ({ doc, history }) => (doc ? (
   </div>
 ) : <NotFound />);
 
+
+EditBoilerplate.defaultProps = {
+  doc: { title: '', url: '' },
+};
+
 EditBoilerplate.propTypes = {
-  doc: PropTypes.object.isRequired,
+  doc: PropTypes.object,
   history: PropTypes.object.isRequired,
 };
 
