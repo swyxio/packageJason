@@ -5,9 +5,6 @@ import { Nav, NavItem } from 'react-bootstrap';
 const PublicNavigation = () => (
   <div>
     <Nav>
-      <LinkContainer to="/documents">
-        <NavItem eventKey={1} href="/documents">Documents</NavItem>
-      </LinkContainer>
       <LinkContainer to="/boilerplates">
         <NavItem eventKey={1.1} href="/boilerplates">Boilerplates</NavItem>
       </LinkContainer>

@@ -84,7 +84,7 @@ class Index2 extends React.Component {
             type="text"
             label="Owner"
             placeholder="Enter owner"
-            defaultValue={this.state.wnerrepo}
+            defaultValue={this.state.ownerrepo}
             // ref={function abc(x) { console.log('owner x', x); this.repo = x; }}
             // ref={(x) => { console.log('owner x', x); this.owner = x; }}
             style={{ textAlign: 'center' }}

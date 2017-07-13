@@ -218,7 +218,7 @@ class BoilerplateStats extends React.Component {
             <span style={{ color: 'red' }}> {this.state.tree && this.state.tree.tree.length}{this.state.tree && this.state.tree.truncated ? '+' : ''}</span> /
           JS Filesize: <span style={{ color: 'red' }}>{this.state.tree && this.calcJSFileSize(this.state.tree.tree)}{this.state.tree && this.state.tree.truncated ? '+' : ''}</span>kb
         </p>
-        <Panel header="Repo metadata" style={{ height: 200, overflowY: 'scroll' }}>
+        <Panel header="Repo metadata" style={{ height: 400, overflowY: 'scroll' }}>
           {objVersion}
           {objDescription}
           {objKeywords}
