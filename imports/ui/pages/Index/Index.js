@@ -4,7 +4,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // import { Row, Col, Alert, Form, FormGroup, HelpBlock, FormControl, ControlLabel, Button } from 'react-bootstrap';
-import { Form, FormGroup, HelpBlock, FormControl, ControlLabel, Button } from 'react-bootstrap';
+import { Form, FormGroup, HelpBlock, FormControl, ControlLabel, Button, Well } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 // import { Accounts } from 'meteor/accounts-base';
 // import { Bert } from 'meteor/themeteorchef:bert';
@@ -99,7 +99,7 @@ class Index2 extends React.Component {
         <p><b>SEARCH</b>, <b>REVIEW</b>, and <b>SCORE</b> Node.js boilerplates for your next project.</p>
         <footer>
           <p>An <a href="http://github.com/sw-yx/packageJason" target="_blank">open source project</a> to reduce <b>the startup time of startups</b> since 2017.</p>
-          <h3><Link to="/login"><b>Login to search and review this boilerplate</b></Link>.</h3>
+          <b><Link to="/login">Login</Link> to search and review this boilerplate.</b>
         </footer>
       </div>
       <BoilerplateStats
@@ -111,6 +111,11 @@ class Index2 extends React.Component {
     </div>);
   }
 }
+      // <Well style={{ textAlign: 'center' }}>
+      //   This boilerplate is accessible at: <a href={`https://packagejason.herokuapp.com/${this.state.ownerrepo}`} target="_blank">
+      //     https://packagejason.herokuapp.com/{this.state.ownerrepo}
+      //   </a>
+      // </Well>
 
         // <div>
         //   <Button href="http://cleverbeagle.com/pup">Read the Docs</Button>
