@@ -4,7 +4,7 @@ import axios from 'axios';
 import React from 'react';
 import ReactGauge from 'react-gauge-test';
 import PropTypes from 'prop-types';
-import { Badge, Panel, Tooltip, OverlayTrigger, Grid, Row, Col, Button } from 'react-bootstrap';
+import { Badge, Panel, Tooltip, OverlayTrigger, Grid, Row, Col, Button, Well } from 'react-bootstrap';
 import { TwitterButton } from 'react-social';
 // import { Meteor } from 'meteor/meteor';
 // import { Bert } from 'meteor/themeteorchef:bert';
@@ -230,9 +230,11 @@ class BoilerplateStats extends React.Component {
       </Tooltip>
     );
     const { match } = this.props;
-    console.log('*****match', match);
     const link = match.url;
-    const emojinum = Math.floor(((Math.tanh(this.state.popScore / this.state.cogload) + 1) / 2) * 7 - 0.001);
+    let emojinum = ((Math.tanh(this.state.popScore / this.state.cogload) + 1) / 2) * 7;
+    emojinum = emojinum > 0 ? emojinum - 0.001 : emojinum + 0.001;
+    emojinum = Math.max(0, Math.floor(emojinum));
+    console.log('emojinum', emojinum);
     const message = `@${this.props.ownerrepo} @PackageJason score is ${Math.floor((this.state.popScore / this.state.cogload) * 100) / 100}${emojirange[emojinum]}! Check it: ${match.url}/${this.props.ownerrepo}`;
                 // <a
                 //   href="https://twitter.com/intent/tweet?screen_name=packageJason"
@@ -252,7 +254,7 @@ class BoilerplateStats extends React.Component {
               <Panel
                 header={
                   <h3>Cognitive Load
-                    <OverlayTrigger placement="right" overlay={tooltipCognitiveLoad}>
+                    <OverlayTrigger placement="bottom" overlay={tooltipCognitiveLoad}>
                       <i> (<u>What is this?</u>)</i>
                     </OverlayTrigger>
                   </h3>
@@ -262,9 +264,11 @@ class BoilerplateStats extends React.Component {
                 }
                 bsStyle="danger"
               >
-                <h1 style={{ color: 'red', textAlign: 'center' }}>
-                  <b>{Math.round(this.state.cogload)}</b>
-                </h1>
+                <Well>
+                  <h1 style={{ color: 'red', textAlign: 'center' }}>
+                    <b>{Math.round(this.state.cogload)}</b>
+                  </h1>
+                </Well>
                 <i>
                   50% External (<span style={{ color: 'red' }}>{this.state.data ? this.calcDependencyLoad(this.state.data) : ''}</span>)
                 <ul>
@@ -293,13 +297,13 @@ class BoilerplateStats extends React.Component {
                   <a href={`https://github.com/${this.props.ownerrepo}`} target="_blank">🔗</a>
                 </h2>
                 <p>PackageJason Score:</p>
-                <Button bsSize="large" block>
+                <Well>
                   <h1 style={{ textAlign: 'center' }}>
                     <b>{Math.round((this.state.popScore / this.state.cogload) * 100) / 100}
-                      {emojirange[Math.floor(((Math.tanh(this.state.popScore / this.state.cogload) + 1) / 2) * 7 - 0.001)]}
+                      {emojirange[emojinum]}
                     </b>
                   </h1>
-                </Button>
+                </Well>
                 <ReactGauge
                   isInnerNumbers
                   arrowValue={(Math.tanh(this.state.popScore / this.state.cogload) + 1) / 2}
@@ -314,7 +318,7 @@ class BoilerplateStats extends React.Component {
                   svgContainerHeight={150}
                 />
                 <br />
-                <Button bsStyle="primary">
+                <Button bsSize="large">
                   <TwitterButton title="Share via Twitter" message={message} url={link} element="a" className="">
                     <h3>Tell your Tweeps! <i className="fa fa-twitter-square" /></h3>
                   </TwitterButton>
@@ -325,19 +329,39 @@ class BoilerplateStats extends React.Component {
               <Panel
                 header={
                   <h3>Popularity Score
-                    <OverlayTrigger placement="right" overlay={tooltipPopularityScore}>
+                    <OverlayTrigger placement="bottom" overlay={tooltipPopularityScore}>
                       <i> (<u>What is this?</u>)</i>
                     </OverlayTrigger>
                   </h3>
                 }
                 bsStyle="success"
               >
-                <h1 style={{ color: 'green', textAlign: 'center' }}> <b>{Math.round(this.state.popScore)}</b></h1>
-                <p><i>Stars (<span style={{ color: 'green' }}>{this.state.starcount}</span>) +</i></p>
-                <p><i>Fork (<span style={{ color: 'green' }}>{this.state.forkcount}</span>) +</i></p>
-                <p><i>Subscribers (<span style={{ color: 'green' }}>{this.state.subscount}</span>) +</i></p>
-                <p><i>Contributors (<span style={{ color: 'green' }}>{this.state.contributorcount}</span>) -</i></p>
-                <p><i>Commit Age Penalty  (f(<span style={{ color: 'red' }}>{this.calcNumDaysSinceLastCommit(this.state.lastcommit)}</span>))</i></p>
+                <Well>
+                  <h1 style={{ color: 'green', textAlign: 'center' }}> <b>{Math.round(this.state.popScore)}</b></h1>
+                </Well>
+                <i>Linear Addition of:
+                  <ul>
+                    <li>
+                      Stars (<span style={{ color: 'green' }}>{this.state.starcount}</span>)
+                    </li>
+                    <li>
+                      Forks (<span style={{ color: 'green' }}>{this.state.forkcount}</span>)
+                    </li>
+                    <li>
+                      Subscribers (<span style={{ color: 'green' }}>{this.state.subscount}</span>)
+                    </li>
+                    <li>
+                      Contributors (<span style={{ color: 'green' }}>{this.state.contributorcount}</span>)
+                    </li>
+                  </ul>
+                </i>
+                <i>Minus:
+                  <ul>
+                    <li>
+                      Commit Age Penalty  (f(<span style={{ color: 'red' }}>{this.calcNumDaysSinceLastCommit(this.state.lastcommit)}</span>))
+                    </li>
+                  </ul>
+                </i>
               </Panel>
             </Col>
           </Row>
