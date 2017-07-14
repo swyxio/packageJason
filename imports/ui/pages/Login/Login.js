@@ -61,7 +61,7 @@ class Login extends React.Component {
           <Row>
             <Col xs={12}>
               <OAuthLoginButtons
-                services={['facebook', 'github', 'google']}
+                services={['github']}
                 emailMessage={{
                   offset: 100,
                   text: 'Log In with an Email Address',

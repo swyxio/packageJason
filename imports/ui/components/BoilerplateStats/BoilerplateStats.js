@@ -234,8 +234,8 @@ class BoilerplateStats extends React.Component {
     let emojinum = ((Math.tanh(this.state.popScore / this.state.cogload) + 1) / 2) * 7;
     emojinum = emojinum > 0 ? emojinum - 0.001 : emojinum + 0.001;
     emojinum = Math.max(0, Math.floor(emojinum));
-    console.log('emojinum', emojinum);
-    const message = `@${this.props.ownerrepo} @PackageJason score is ${Math.floor((this.state.popScore / this.state.cogload) * 100) / 100}${emojirange[emojinum]}! Check it: https://packagejason.herokuapp.com/${this.props.ownerrepo}`;
+    const or = this.props.ownerrepo.split('/');
+    const message = `@${or[0]} /${or[1]} @PackageJason score is ${Math.floor((this.state.popScore / this.state.cogload) * 100) / 100}${emojirange[emojinum]}! Check it: https://packagejason.herokuapp.com/${this.props.ownerrepo}`;
                 // <a
                 //   href="https://twitter.com/intent/tweet?screen_name=packageJason"
                 //   className="twitter-mention-button"

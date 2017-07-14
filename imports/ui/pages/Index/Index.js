@@ -4,7 +4,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // import { Row, Col, Alert, Form, FormGroup, HelpBlock, FormControl, ControlLabel, Button } from 'react-bootstrap';
-import { Form, FormGroup, HelpBlock, FormControl, ControlLabel, Button, Well } from 'react-bootstrap';
+import { Form, FormGroup, HelpBlock, FormControl, ControlLabel, Button, Modal, Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 // import { Accounts } from 'meteor/accounts-base';
 // import { Bert } from 'meteor/themeteorchef:bert';
@@ -33,9 +33,17 @@ class Index2 extends React.Component {
     const doc = owner && repo ? {} : null;
     // const ownerrepo = (owner && repo ? `${owner}/${repo}` : '') || this.state.ownerrepo;
     const ownerrepo = (owner && repo ? `${owner}/${repo}` : '');
-    this.state = { ownerrepo, doc };
+    this.state = { ownerrepo, doc, showModal: false };
     // this.generateOwnerRepo = this.generateOwnerRepo.bind(this);
   }
+  close() {
+    this.setState({ showModal: false });
+  }
+
+  open() {
+    this.setState({ showModal: true });
+  }
+
 
   // generateOwnerRepo() {
   //   console.log('this', this);
@@ -97,6 +105,14 @@ class Index2 extends React.Component {
         <p><i>e.g. <Button onClick={() => this.setState({ ownerrepo: 'mxstbr/react-boilerplate' })}><code>mxstbr/react-boilerplate</code></Button> or <Button onClick={() => this.setState({ ownerrepo: 'cleverbeagle/pup' })}><code>cleverbeagle/pup</code></Button></i></p>
         <h1>Welcome to PackageJason!</h1>
         <p><b>SEARCH</b>, <b>REVIEW</b>, and <b>SCORE</b> Node.js boilerplates for your next project.</p>
+        <Button
+          bsStyle="primary"
+          bsSize="large"
+          onClick={() => this.open()}
+        >
+          Watch Demo <br />
+          <Image src="/fulldemo1.gif" alt="Demo gif" responsive />
+        </Button>
         <footer>
           <p>An <a href="http://github.com/sw-yx/packageJason" target="_blank">open source project</a> to reduce <b>the startup time of startups</b> since 2017.</p>
           <b><Link to="/login">Login</Link> to search and review this boilerplate.</b>
@@ -108,6 +124,17 @@ class Index2 extends React.Component {
         ownerrepo={this.state.ownerrepo}
         ref={boilerplateStats => (this.boilerplateStats = boilerplateStats)}
       />
+      <Modal bsSize="large" show={this.state.showModal} onHide={() => this.close()}>
+        <Modal.Header closeButton>
+          <Modal.Title>Demo Gif</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Image src="/fulldemo1.gif" alt="Demo gif" responsive />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={() => this.close()}>Close</Button>
+        </Modal.Footer>
+      </Modal>
     </div>);
   }
 }
