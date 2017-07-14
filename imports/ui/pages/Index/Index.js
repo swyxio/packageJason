@@ -98,7 +98,7 @@ class Index2 extends React.Component {
         <h1>Welcome to PackageJason!</h1>
         <p><b>SEARCH</b>, <b>REVIEW</b>, and <b>SCORE</b> Node.js boilerplates for your next project.</p>
         <footer>
-          <p>An <a href="http://github.com/sw-yx/packageJason" target="_blank">open source project</a> to reduce <b>the startup time of startups</b> since 2017.<p>
+          <p>An <a href="http://github.com/sw-yx/packageJason" target="_blank">open source project</a> to reduce <b>the startup time of startups</b> since 2017.</p>
           <h3><Link to="/login"><b>Login to search and review this boilerplate</b></Link>.</h3>
         </footer>
       </div>
