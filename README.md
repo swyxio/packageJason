@@ -16,7 +16,7 @@ A hackathon/starter kit/boilerplate rating engine.
 - FAVE: Keep a list of your favorites you can come back to and use
 - SCORE: Rapidly evaluate the **cognitive load** of any boilerplate you come across!
 
-<img src="public/boilerplatesearchdependencies.gif" alt="Demo gif" style="width: 400px;"/>
+<img src="public/fulldemo1.gif" alt="Demo gif" style="width: 400px;"/>
 
 ### With his new boilerplate skills, Jason even has time to ask Package Jane out on a date!
 
