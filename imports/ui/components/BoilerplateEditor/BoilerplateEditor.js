@@ -101,7 +101,7 @@ class BoilerplateEditor extends React.Component {
   }
 
   render() {
-    const { doc } = this.props;
+    const { doc, match } = this.props;
     return (<form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
       <FormGroup>
         <ControlLabel>Owner/Repo</ControlLabel>
@@ -137,6 +137,7 @@ class BoilerplateEditor extends React.Component {
         />
       </FormGroup>
       <BoilerplateStats
+        match={match}
         doc={doc}
         ownerrepo={`${this.state.ownerrepo}` || (doc && doc.ownerrepo)}
         ref={boilerplateStats => (this.boilerplateStats = boilerplateStats)}
@@ -154,6 +155,7 @@ BoilerplateEditor.defaultProps = {
 
 BoilerplateEditor.propTypes = {
   doc: PropTypes.object,
+  match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
 };
 

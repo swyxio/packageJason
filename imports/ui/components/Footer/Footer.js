@@ -13,7 +13,7 @@ const copyrightYear = () => {
 const Footer = () => (
   <div className="Footer">
     <Grid>
-      <p className="pull-left">&copy; {copyrightYear()} PackageJason</p>
+      <p className="pull-left">&copy; {copyrightYear()} PackageJason. <a href="http://cleverbeagle.com?utm_source=pupappindex&utm_campaign=oss">Template from Clever Beagle</a>.</p>
       <ul className="pull-right">
         <li><Link to="/terms">Terms<span className="hidden-xs"> of Service</span></Link></li>
         <li><Link to="/privacy">Privacy<span className="hidden-xs"> Policy</span></Link></li>

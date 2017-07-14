@@ -2,10 +2,49 @@
 
 import axios from 'axios';
 import React from 'react';
+import ReactGauge from 'react-gauge-test';
 import PropTypes from 'prop-types';
-import { Badge, Panel, Tooltip, OverlayTrigger } from 'react-bootstrap';
+import { Badge, Panel, Tooltip, OverlayTrigger, Grid, Row, Col, Button } from 'react-bootstrap';
+import { TwitterButton } from 'react-social';
 // import { Meteor } from 'meteor/meteor';
 // import { Bert } from 'meteor/themeteorchef:bert';
+
+const emojirange = ['❗', '😓', '👎', '👍', '🙂', '⭐', '🔥'];
+const range7 = [{
+  start: 0,
+  end: 1 / 7,
+  color: '#f00',
+},
+{
+  start: 1 / 7,
+  end: 2 / 7,
+  color: '#ff7f00',
+},
+{
+  start: 2 / 7,
+  end: 3 / 7,
+  color: '#ffff00',
+},
+{
+  start: 3 / 7,
+  end: 4 / 7,
+  color: '#00bc3f',
+},
+{
+  start: 4 / 7,
+  end: 5 / 7,
+  color: '#0068ff',
+},
+{
+  start: 5 / 7,
+  end: 6 / 7,
+  color: '#7a00e5',
+},
+{
+  start: 6 / 7,
+  end: 1,
+  color: '#bc31fe',
+}];
 
 class BoilerplateStats extends React.Component {
   constructor(props) {
@@ -16,12 +55,16 @@ class BoilerplateStats extends React.Component {
     if (this.props.doc) {
       this.getDetails();
     }
+    // twttr.ready(() => {
+    //   twttr.widgets.createTimeline(widgetId, this.refs.container)
+    // })
+    // twttr.widgets.load();
   }
 
   getDetails() {
     const ownerrepo = this.props.ownerrepo;
-    console.log('this.state.failed_ownerrepo', this.state.failed_ownerrepo);
-    console.log('this.state.failed_ownerrepo ownerrepo', ownerrepo);
+    // console.log('this.state.failed_ownerrepo', this.state.failed_ownerrepo);
+    // console.log('this.state.failed_ownerrepo ownerrepo', ownerrepo);
     if (!ownerrepo || this.state.failed_ownerrepo.includes(ownerrepo)) return;
     axios.defaults.headers.get.Accept = 'application/vnd.github.v3.raw';
     console.log('Hi! thanks for checking me out. I am a newbie developer and put my client/id here because I wanted to ship this thing quickly. No hack us plz! \n \n @swyx')
@@ -66,7 +109,7 @@ class BoilerplateStats extends React.Component {
       });
     }).catch((error) => {
       const newfailrepo = this.state.failed_ownerrepo.includes(ownerrepo) ? this.state.failed_ownerrepo : this.state.failed_ownerrepo.concat(ownerrepo);
-      console.log('newfailrepo', newfailrepo);
+      // console.log('newfailrepo', newfailrepo);
       this.setState({
         data: null,
         tree: null,
@@ -138,7 +181,7 @@ class BoilerplateStats extends React.Component {
 
   displayDependencies() {
     // title or name
-    const objTitle = this.state.data.title || this.state.data.name ? <p>Title: {this.state.data.title || this.state.data.name}</p> : null;
+    // const objTitle = this.state.data.title || this.state.data.name;
     // version
     const objVersion = this.state.data.version ? <p>Version: {this.state.data.version}</p> : null;
     // description
@@ -186,38 +229,117 @@ class BoilerplateStats extends React.Component {
         </p>
       </Tooltip>
     );
+    const { match } = this.props;
+    console.log('*****match', match);
+    const link = match.url;
+    const emojinum = Math.floor(((Math.tanh(this.state.popScore / this.state.cogload) + 1) / 2) * 7 - 0.001);
+    const message = `@${this.props.ownerrepo} @PackageJason score is ${Math.floor((this.state.popScore / this.state.cogload) * 100) / 100}${emojirange[emojinum]}! Check it: ${match.url}/${this.props.ownerrepo}`;
+                // <a
+                //   href="https://twitter.com/intent/tweet?screen_name=packageJason"
+                //   className="twitter-mention-button"
+                //   data-size="large"
+                //   data-text={`${objTitle} @PackageJason score is ${Math.round((this.state.popScore / this.state.cogload) * 100) / 100}${emojirange[Math.round(Math.tanh(this.state.popScore / this.state.cogload) * 6)]}! ${this.props.match && this.props.match.url}`}
+                //   data-related="PackageJane,swyx"
+                //   data-show-count="false"
+                // >
+                //   Tweet this score!
+                // </a>
     return (
-      <div className="container">
-        <b>{this.props.ownerrepo}</b> <a href={`https://github.com/${this.props.ownerrepo}`} target="_blank">🔗</a> {objTitle}
-        <p>
-          <b>Popularity Score: </b>
-            Stars (<span style={{ color: 'green' }}>{this.state.starcount}</span>) +
-            Fork (<span style={{ color: 'green' }}>{this.state.forkcount}</span>) +
-            Subscribers (<span style={{ color: 'green' }}>{this.state.subscount}</span>) +
-            Contributors (<span style={{ color: 'green' }}>{this.state.contributorcount}</span>) -
-            Commit Age Penalty  (f(<span style={{ color: 'red' }}>{this.calcNumDaysSinceLastCommit(this.state.lastcommit)}</span>)):
-          <span style={{ color: 'green' }}> <b>{this.calcPopularityScore(this.state.lastcommit, this.state.starcount, this.state.forkcount, this.state.subscount, this.state.contributorcount)}</b></span>
-          <OverlayTrigger placement="right" overlay={tooltipPopularityScore}>
-            <i> (<u>what is this?</u>)</i>
-          </OverlayTrigger>
-        </p>
-        <p>
-          <b>Boilerplate Load: </b>
-          50% External (<span style={{ color: 'red' }}>{this.state.data ? this.calcDependencyLoad(this.state.data) : ''}</span>) +
-           50% Internal (<span style={{ color: 'red' }}>{this.state.tree ? this.calcTreeLoad(this.state.tree) : ''}</span>) =
-          Cognitive Load Score: <span style={{ color: 'red' }}><b>{this.state.tree && this.state.data ? this.calcCogLoad(this.state.data, this.state.tree) : ''}</b></span>
-          <OverlayTrigger placement="right" overlay={tooltipCognitiveLoad}>
-            <i> (<u>what is this?</u>)</i>
-          </OverlayTrigger>
-        </p>
-        <p>
-          <b>Key Raw Numbers: </b>
-          <a href={`https://api.github.com/repos/${this.props.ownerrepo}/contents/package.json`} target="_blank">Total Dependencies</a>:
-            <span style={{ color: 'red' }}> {this.calcTotalDeps(this.state.data)}</span> /
-          <a href={`https://api.github.com/repos/${this.props.ownerrepo}/git/trees/master?recursive=1`} target="_blank"> Folder+Filecount</a>:
-            <span style={{ color: 'red' }}> {this.state.tree && this.state.tree.tree.length}{this.state.tree && this.state.tree.truncated ? '+' : ''}</span> /
-          JS Filesize: <span style={{ color: 'red' }}>{this.state.tree && this.calcJSFileSize(this.state.tree.tree)}{this.state.tree && this.state.tree.truncated ? '+' : ''}</span>kb
-        </p>
+      <div>
+        <Grid style={{ paddingLeft: '0px', marginRight: '0px' }}>
+          <Row>
+            <Col xs={12} md={4}>
+              <Panel
+                header={
+                  <h3>Cognitive Load
+                    <OverlayTrigger placement="right" overlay={tooltipCognitiveLoad}>
+                      <i> (<u>What is this?</u>)</i>
+                    </OverlayTrigger>
+                  </h3>
+                }
+                footer={
+                  <span>Link to <a href={`https://github.com/${this.props.ownerrepo}/blob/master/package.json`} target="_blank">package.json</a></span>
+                }
+                bsStyle="danger"
+              >
+                <h1 style={{ color: 'red', textAlign: 'center' }}>
+                  <b>{Math.round(this.state.cogload)}</b>
+                </h1>
+                <i>
+                  50% External (<span style={{ color: 'red' }}>{this.state.data ? this.calcDependencyLoad(this.state.data) : ''}</span>)
+                <ul>
+                  <li>
+                    <a href={`https://api.github.com/repos/${this.props.ownerrepo}/contents/package.json`} target="_blank">Total Dependencies</a>:
+                    <span style={{ color: 'red' }}> {this.calcTotalDeps(this.state.data)}</span>
+                  </li>
+                </ul>
+                  50% Internal (<span style={{ color: 'red' }}>{this.state.tree ? this.calcTreeLoad(this.state.tree) : ''}</span>)
+                <ul>
+                  <li>
+                    <a href={`https://api.github.com/repos/${this.props.ownerrepo}/git/trees/master?recursive=1`} target="_blank"> Folder+Filecount</a>:
+                    <span style={{ color: 'red' }}> {this.state.tree && this.state.tree.tree.length}{this.state.tree && this.state.tree.truncated ? '+' : ''}</span>
+                  </li>
+                  <li>
+                    JS Filesize: <span style={{ color: 'red' }}>{this.state.tree && this.calcJSFileSize(this.state.tree.tree)}{this.state.tree && this.state.tree.truncated ? '+' : ''}</span>kb
+                  </li>
+                </ul>
+                </i>
+              </Panel>
+            </Col>
+            <Col xs={12} md={4}>
+              <Panel header={<h3>Load vs Popularity Rating</h3>} bsStyle="primary" style={{ textAlign: 'center' }}>
+                <h2>
+                  <b>{this.props.ownerrepo}</b>
+                  <a href={`https://github.com/${this.props.ownerrepo}`} target="_blank">🔗</a>
+                </h2>
+                <p>PackageJason Score:</p>
+                <Button bsSize="large" block>
+                  <h1 style={{ textAlign: 'center' }}>
+                    <b>{Math.round((this.state.popScore / this.state.cogload) * 100) / 100}
+                      {emojirange[Math.floor(((Math.tanh(this.state.popScore / this.state.cogload) + 1) / 2) * 7 - 0.001)]}
+                    </b>
+                  </h1>
+                </Button>
+                <ReactGauge
+                  isInnerNumbers
+                  arrowValue={(Math.tanh(this.state.popScore / this.state.cogload) + 1) / 2}
+                  // aperture={180}
+                  arcStrokeWidth={5}
+                  marks={emojirange}
+                  ranges={range7}
+                  aperture={240}
+                  radius={110}
+                  contentWidth={250}
+                  svgContainerWidth={350}
+                  svgContainerHeight={150}
+                />
+                <br />
+                <TwitterButton title="Share via Twitter" message={message} url={link} element="a" className="">
+                  Tell your Tweeps! <i className="fa fa-twitter-square" />
+                </TwitterButton>
+              </Panel>
+            </Col>
+            <Col xs={12} md={4}>
+              <Panel
+                header={
+                  <h3>Popularity Score
+                    <OverlayTrigger placement="right" overlay={tooltipPopularityScore}>
+                      <i> (<u>What is this?</u>)</i>
+                    </OverlayTrigger>
+                  </h3>
+                }
+                bsStyle="success"
+              >
+                <h1 style={{ color: 'green', textAlign: 'center' }}> <b>{Math.round(this.state.popScore)}</b></h1>
+                <p><i>Stars (<span style={{ color: 'green' }}>{this.state.starcount}</span>) +</i></p>
+                <p><i>Fork (<span style={{ color: 'green' }}>{this.state.forkcount}</span>) +</i></p>
+                <p><i>Subscribers (<span style={{ color: 'green' }}>{this.state.subscount}</span>) +</i></p>
+                <p><i>Contributors (<span style={{ color: 'green' }}>{this.state.contributorcount}</span>) -</i></p>
+                <p><i>Commit Age Penalty  (f(<span style={{ color: 'red' }}>{this.calcNumDaysSinceLastCommit(this.state.lastcommit)}</span>))</i></p>
+              </Panel>
+            </Col>
+          </Row>
+        </Grid>
         <Panel header="Repo metadata" style={{ height: 400, overflowY: 'scroll' }}>
           {objVersion}
           {objDescription}
@@ -239,7 +361,6 @@ class BoilerplateStats extends React.Component {
     );
   }
   render() {
-    // const { doc } = this.props;
     const ownerrepo = this.props.ownerrepo;
     if (this.state.currentrepo !== ownerrepo) {
       this.setState({
@@ -247,14 +368,14 @@ class BoilerplateStats extends React.Component {
         data: null,
       });
     }
-    console.log('boilerplatestats ownerrepo', ownerrepo);
-    console.log('this.state.data', this.state.data);
+    // console.log('boilerplatestats ownerrepo', ownerrepo);
+    // console.log('this.state.data', this.state.data);
     if (!this.state.data && ownerrepo.indexOf('/') + 1) this.getDetails();
     // if (!this.state.data && ownerrepo.indexOf('/') + 1 && ownerrepo.split('/')[1].length > 0) this.getDetails();
     return (<div>
       { this.state.data ?
           this.displayDependencies() :
-          <div> {`${ownerrepo || 'blank/blank'}`} is invalid. Please input a valid owner/repo combo. </div>}
+          <div> {`${ownerrepo || 'blank/blank'}`} is invalid. Please input a valid owner/repo combo to see its PackageJason score!</div>}
     </div>);
   }
 }
@@ -262,10 +383,12 @@ class BoilerplateStats extends React.Component {
 BoilerplateStats.defaultProps = {
   doc: { title: '', url: '' },
   ownerrepo: '',
+  match: { url: '' },
 };
 
 BoilerplateStats.propTypes = {
   doc: PropTypes.object,
+  match: PropTypes.object,
   // history: PropTypes.object.isRequired,
   ownerrepo: PropTypes.string.isRequired,
 };

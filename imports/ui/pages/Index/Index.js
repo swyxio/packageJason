@@ -3,7 +3,9 @@
 // import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Row, Col, Alert, Form, FormGroup, HelpBlock, FormControl, ControlLabel, Button } from 'react-bootstrap';
+// import { Row, Col, Alert, Form, FormGroup, HelpBlock, FormControl, ControlLabel, Button } from 'react-bootstrap';
+import { Form, FormGroup, HelpBlock, FormControl, ControlLabel, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 // import { Accounts } from 'meteor/accounts-base';
 // import { Bert } from 'meteor/themeteorchef:bert';
 // import validate from '../../../modules/validate';
@@ -72,6 +74,7 @@ class Index2 extends React.Component {
           // />
   render() {
     // const { match, history } = this.props;
+    const { match } = this.props;
     // console.log('match', match);
     // console.log('props', this.props);
     // console.log('rendering');
@@ -82,26 +85,25 @@ class Index2 extends React.Component {
           <FieldGroup
             id="formControlsText"
             type="text"
-            label="Owner"
-            placeholder="Enter owner"
+            label="Owner/Repo"
+            placeholder="Enter the Owner/Repo of your favorite boilerplate from Github"
             defaultValue={this.state.ownerrepo}
             // ref={function abc(x) { console.log('owner x', x); this.repo = x; }}
             // ref={(x) => { console.log('owner x', x); this.owner = x; }}
-            style={{ textAlign: 'center' }}
+            style={{ textAlign: 'center', width: 500 }}
             onChange={(e) => this.setState({ownerrepo: e.target.value})}
           />
         </Form>
-        <h1>PackageJason {this.state.ownerrepo}</h1>
-        <p>A boilerplate search engine.</p>
-        <div>
-          <Button href="http://cleverbeagle.com/pup">Read the Docs</Button>
-          <Button href="https://github.com/cleverbeagle/pup"><i className="fa fa-star" /> Star on GitHub</Button>
-        </div>
+        <p><i>e.g. <Button onClick={() => this.setState({ ownerrepo: 'mxstbr/react-boilerplate' })}><code>mxstbr/react-boilerplate</code></Button> or <Button onClick={() => this.setState({ ownerrepo: 'cleverbeagle/pup' })}><code>cleverbeagle/pup</code></Button></i></p>
+        <h1>Welcome to PackageJason!</h1>
+        <p><b>SEARCH</b>, <b>REVIEW</b>, and <b>SCORE</b> Node.js boilerplates for your next project.</p>
         <footer>
-          <p>Need help and want to stay accountable building your product? <a href="http://cleverbeagle.com?utm_source=pupappindex&utm_campaign=oss">Check out Clever Beagle</a>.</p>
+          <p>An <a href="http://github.com/sw-yx/packageJason" target="_blank">open source project</a> to reduce <b>the startup time of startups</b> since 2017.<p>
+          <h3><Link to="/login"><b>Login to search and review this boilerplate</b></Link>.</h3>
         </footer>
       </div>
       <BoilerplateStats
+        match={match}
         doc={this.state.doc}
         ownerrepo={this.state.ownerrepo}
         ref={boilerplateStats => (this.boilerplateStats = boilerplateStats)}
@@ -110,6 +112,10 @@ class Index2 extends React.Component {
   }
 }
 
+        // <div>
+        //   <Button href="http://cleverbeagle.com/pup">Read the Docs</Button>
+        //   <Button href="https://github.com/cleverbeagle/pup"><i className="fa fa-star" /> Star on GitHub</Button>
+        // </div>
 Index2.propTypes = {
   match: PropTypes.object.isRequired,
   // history: PropTypes.object.isRequired,
