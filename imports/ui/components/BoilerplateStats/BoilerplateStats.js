@@ -314,9 +314,11 @@ class BoilerplateStats extends React.Component {
                   svgContainerHeight={150}
                 />
                 <br />
-                <TwitterButton title="Share via Twitter" message={message} url={link} element="a" className="">
-                  Tell your Tweeps! <i className="fa fa-twitter-square" />
-                </TwitterButton>
+                <Button bsStyle="primary">
+                  <TwitterButton title="Share via Twitter" message={message} url={link} element="a" className="">
+                    <h3>Tell your Tweeps! <i className="fa fa-twitter-square" /></h3>
+                  </TwitterButton>
+                </Button>
               </Panel>
             </Col>
             <Col xs={12} md={4}>
